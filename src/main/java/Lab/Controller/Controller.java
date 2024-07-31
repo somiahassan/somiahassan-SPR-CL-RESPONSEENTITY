@@ -21,33 +21,38 @@ public class Controller {
      * in the response body as a String.
      */
     @GetMapping("/example401")
-    public ResponseEntity example(){
+    public ResponseEntity<String> example(){
         return ResponseEntity.status(401).body("Unauthorized resource!");
     }
+
     /**
      * ResponseEntity will also be useful for sending specific headers in the response. Here is a demonstration
      * of setting the status code to 200, the body to the "sample" class, and a content type to a compressed zip
      * file - a niche situation, but one found in the real world regardless.
      */
     @GetMapping("/exampleHeaders")
-    public ResponseEntity headers(@RequestBody Sample sample){
+    public ResponseEntity<Sample> headers(@RequestBody Sample sample){
         return ResponseEntity.status(200).header("content-type", "application/zip").body(sample);
     }
+
     /**
      * TODO: return a ResponseEntity containing a response of type "Bad Request", as well as a String in the body
      * that says "Bad Request"
      */
     @GetMapping("/lab1")
-    public ResponseEntity lab1(){
-        return null;
+    public ResponseEntity<String> lab1(){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request");
     }
+
     /**
      * TODO: return a ResponseEntity containing a response of type "Resource Created", setting the "content-length"
      * header to a value of "100", and responding with a body containing the Sample object received in the request
      * body.
      */
     @GetMapping("/lab2")
-    public ResponseEntity lab2(@RequestBody Sample sample){
-        return null;
+    public ResponseEntity<Sample> lab2(@RequestBody Sample sample){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                             .header("content-length", "100")
+                             .body(sample);
     }
 }
